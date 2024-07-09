@@ -1,0 +1,40 @@
+2024-06-27 11:30:18 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\andon-jfa-fonte-pth\andon-jfa-master\node_modules\node-windows\lib\wrapper.js --file C:\andon-jfa-fonte-pth\andon-jfa-master\src\app\express.js --scriptoptions= --log "tabletpth wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2024-06-27 11:30:18 - Started 18700
+2024-07-03 06:59:27 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\andon-jfa-fonte-pth\andon-jfa-master\node_modules\node-windows\lib\wrapper.js --file C:\andon-jfa-fonte-pth\andon-jfa-master\src\app\express.js --scriptoptions= --log "tabletpth wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2024-07-03 06:59:27 - Started 11772
+2024-07-03 07:09:46 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\andon-jfa-fonte-pth\andon-jfa-master\node_modules\node-windows\lib\wrapper.js --file C:\andon-jfa-fonte-pth\andon-jfa-master\src\app\express.js --scriptoptions= --log "tabletpth wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2024-07-03 07:09:46 - Started 17932
+2024-07-03 07:22:13 - Stopping tabletpth.exe
+2024-07-03 07:22:13 - ProcessKill 17932
+2024-07-03 07:22:13 - Found child process: 15652 Name: conhost.exe
+2024-07-03 07:22:13 - Found child process: 16320 Name: node.exe
+2024-07-03 07:22:13 - Stopping process 15652
+2024-07-03 07:22:13 - Send SIGINT 15652
+2024-07-03 07:22:13 - SIGINT to 15652 failed - Killing as fallback
+2024-07-03 07:22:13 - Stopping process 16320
+2024-07-03 07:22:13 - Send SIGINT 16320
+2024-07-03 07:22:13 - SIGINT to 16320 failed - Killing as fallback
+2024-07-03 07:22:13 - Stopping process 17932
+2024-07-03 07:22:13 - Send SIGINT 17932
+2024-07-03 07:22:13 - SIGINT to 17932 failed - Killing as fallback
+2024-07-03 07:22:13 - Finished tabletpth.exe
+2024-07-03 07:22:16 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\andon-jfa-fonte-pth\andon-jfa-master\node_modules\node-windows\lib\wrapper.js --file C:\andon-jfa-fonte-pth\andon-jfa-master\src\app\express.js --scriptoptions= --log "tabletpth wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2024-07-03 07:22:16 - Started 17692
+2024-07-05 12:08:21 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\andon-jfa-fonte-pth\andon-jfa-master\node_modules\node-windows\lib\wrapper.js --file C:\andon-jfa-fonte-pth\andon-jfa-master\src\app\express.js --scriptoptions= --log "tabletpth wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2024-07-05 12:08:21 - Started 137524
+2024-07-05 12:08:23 - Stopping tabletpth.exe
+2024-07-05 12:08:23 - ProcessKill 137524
+2024-07-05 12:08:24 - Found child process: 131224 Name: conhost.exe
+2024-07-05 12:08:24 - Found child process: 135796 Name: node.exe
+2024-07-05 12:08:24 - Stopping process 131224
+2024-07-05 12:08:24 - Send SIGINT 131224
+2024-07-05 12:08:24 - SIGINT to 131224 failed - Killing as fallback
+2024-07-05 12:08:24 - Stopping process 135796
+2024-07-05 12:08:24 - Send SIGINT 135796
+2024-07-05 12:08:24 - SIGINT to 135796 failed - Killing as fallback
+2024-07-05 12:08:24 - Stopping process 137524
+2024-07-05 12:08:24 - Send SIGINT 137524
+2024-07-05 12:08:24 - SIGINT to 137524 failed - Killing as fallback
+2024-07-05 12:08:24 - Finished tabletpth.exe
+2024-07-05 12:09:26 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\andon-jfa-fonte-pth\andon-jfa-master\node_modules\node-windows\lib\wrapper.js --file C:\andon-jfa-fonte-pth\andon-jfa-master\src\app\express.js --scriptoptions= --log "tabletpth wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2024-07-05 12:09:26 - Started 132708
