@@ -39,9 +39,11 @@ export class OperationService {
     return this.http.get<Main[]>(environment.url + "main")
   }
 
-  atualizar(name: string, tempo: number) {
-    this.http.get(environment.url + "nodemcu/atualizarTempo/" + name + "/" + tempo).subscribe()
-
+  atualizar(id: number, tempo: boolean) :Observable<any>{
+    return this.http.get<any>(environment.url + "contadores/" + id + "/" + tempo)
+  }
+  getTempo(id: number){
+    return this.http.get<any>(environment.url + "contadores/" + id)
   }
 
   atualizarState(name: string, state: string){

@@ -38,3 +38,21 @@
 2024-07-05 12:08:24 - Finished tabletpth.exe
 2024-07-05 12:09:26 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\andon-jfa-fonte-pth\andon-jfa-master\node_modules\node-windows\lib\wrapper.js --file C:\andon-jfa-fonte-pth\andon-jfa-master\src\app\express.js --scriptoptions= --log "tabletpth wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
 2024-07-05 12:09:26 - Started 132708
+2024-07-11 15:12:32 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\andon-jfa-fonte-pth\andon-jfa-master\node_modules\node-windows\lib\wrapper.js --file C:\andon-jfa-fonte-pth\andon-jfa-master\src\app\express.js --scriptoptions= --log "tabletpth wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2024-07-11 15:12:32 - Started 7488
+2024-07-11 15:37:48 - Stopping tabletpth.exe
+2024-07-11 15:37:48 - ProcessKill 7488
+2024-07-11 15:37:48 - Shutdown exception
+Message:O sistema está sendo desligado.
+
+Stacktrace:   em System.Runtime.InteropServices.Marshal.ThrowExceptionForHRInternal(Int32 errorCode, IntPtr errorInfo)
+   em System.Management.ManagementScope.InitializeGuts(Object o)
+   em System.Management.ManagementScope.Initialize()
+   em System.Management.ManagementObjectSearcher.Initialize()
+   em System.Management.ManagementObjectSearcher.Get()
+   em winsw.WrapperService.GetChildPids(Int32 pid)
+   em winsw.WrapperService.StopProcessAndChildren(Int32 pid)
+   em winsw.WrapperService.StopIt()
+   em winsw.WrapperService.OnShutdown()
+2024-07-11 15:38:29 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\andon-jfa-fonte-pth\andon-jfa-master\node_modules\node-windows\lib\wrapper.js --file C:\andon-jfa-fonte-pth\andon-jfa-master\src\app\express.js --scriptoptions= --log "tabletpth wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2024-07-11 15:38:29 - Started 8028

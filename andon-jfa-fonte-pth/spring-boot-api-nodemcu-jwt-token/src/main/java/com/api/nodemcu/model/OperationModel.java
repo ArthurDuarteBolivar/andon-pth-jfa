@@ -9,7 +9,7 @@ import java.util.TimeZone;
 
 @Entity
 @Data
-@Table(name="operaion")
+@Table(name="operation")
 public class OperationModel {
 
     @Id
@@ -18,8 +18,6 @@ public class OperationModel {
     private Integer id;
 
     private String name;
-
-    private Integer limitedTime;
 
     private Boolean ocupado;
 

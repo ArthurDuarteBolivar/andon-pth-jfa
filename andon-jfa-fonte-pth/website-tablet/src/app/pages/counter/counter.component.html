@@ -1,18 +1,18 @@
-<button class="analiseButton" (click)="analise()">Analise</button>
+<!-- <button class="analiseButton" (click)="analise()">Analise</button> -->
 <button class="ajuda" (click)="ajuda()" *ngIf="!onAnalise">ajuda</button>
 <section (click)="enterFullscreen()"
       [ngClass]="{'animationBlue': azulStateCalled}"
-      [ngClass]="{'animationRed': vermelhoStateCalled || contador > lmitedTime }">
+      [ngClass]="{'animationRed': vermelhoStateCalled }">
     <div class="info">      
         <div>
             <h1>REALIZADO: {{count}}</h1> 
             <h1>OP: {{operation.name}} P </h1>
             <h1>REALIZADO HR: {{realizadoHoraAtual}}</h1>
         </div>
-        <div> <h1 *ngIf="operation.name != '170' && operation.name != '160'  && operation.name != '180'  && operation.name != '190'" [ngStyle]="{
+        <div> <h1 *ngIf="operation.name != '170' && operation.name != '160'  && operation.name != '180'  && operation.name != '190' && operation.name != '200' && operation.name != '210' && operation.name != '220' && operation.name != '230'" [ngStyle]="{
           'color': contador < lmitedTime ? '#00FF00':  (contador > lmitedTime ? '#ff0000' : 'red')
         }">TEMPO: {{contador}}s</h1>
-      <h1 *ngIf="operation.name == '160' || operation.name == '170' || operation.name == '180' || operation.name == '190'" [ngStyle]="{
+      <h1 *ngIf="operation.name == '160' || operation.name == '170' || operation.name == '180' || operation.name == '190' || operation.name == '200' || operation.name == '210' || operation.name == '220' || operation.name == '230'" [ngStyle]="{
           'color': contador < 240 ? '#00FF00':  (contador > 240  ? '#ff0000' : 'red')
         }">TEMPO: {{contador}}s</h1>
         </div>

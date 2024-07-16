@@ -93,29 +93,15 @@ export class CounterComponent implements OnInit, OnDestroy {
       width: '250px',
       data: { message: 'Tempo de ciclo indisponível, favor comunicar a líder' },
     });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('O popup foi fechado com resultado:', result);
-      // Aqui você pode adicionar lógica para lidar com o resultado do popup
-    });
   }
-  
+
   ngOnInit() {
     this.route.params.subscribe(
       (params) => {
         this.nomeOperacao = params['name'];
         this.operationService.get(params['name']).subscribe(
           (res) => {
-            if (res == null) {
-              this.router.navigate(['http://172.16.34.229:4200/counter/070']);
-            }
             this.operation = res;
-            // if(this.operation.ocupado == true){
-            //   this.router.navigate(['/error'])
-            // }
-            this.operationService
-              .atualizarOcupado(this.nomeOperacao.toString(), true)
-              .subscribe();
             this.operationService.getByName(this.operation.name).subscribe(
               (res) => {
                 this.count = res.count;
@@ -147,8 +133,7 @@ export class CounterComponent implements OnInit, OnDestroy {
             );
           },
           (errr) => {
-            console.log();
-            this.router.navigate(['http://172.16.34.229:4200/counter/070']);
+            this.openSnackBar('Erro no Service', 'Ok');
           }
         );
         this.operationService
@@ -158,7 +143,7 @@ export class CounterComponent implements OnInit, OnDestroy {
           });
       },
       (errr) => {
-        this.router.navigate(['http://172.16.34.229:4200/counter/070']);
+        this.openSnackBar('Erro no Service', 'Ok');
       }
     );
 
@@ -175,13 +160,13 @@ export class CounterComponent implements OnInit, OnDestroy {
     );
     setInterval(() => {
       this.operationService.get(this.operation.name).subscribe(res => {
-        if(res.analise == true){
+        if (res.analise == true) {
           this.onAnalise = true
           clearInterval(this.intervalRef
           )
           clearInterval(this.intervalo)
           this.vermelhoStateCalled = false
-          this.tempoOcioso =  0
+          this.tempoOcioso = 0
           this.stateButton = true;
           this.contador = 0;
           this.tempoOcioso = 0;
@@ -191,7 +176,7 @@ export class CounterComponent implements OnInit, OnDestroy {
           this.azulStateCalled = true;
 
         }
-        else{
+        else {
           this.onAnalise = false;
           this.azulStateCalled = false
           this.currentState = 'verde'
@@ -218,12 +203,10 @@ export class CounterComponent implements OnInit, OnDestroy {
           this.intervaloCounter()
         }
       })
-    }, 5000)
-    setInterval(() => {
       this.operationService.getTCimposto().subscribe(
         (res: Main[]) => {
           res.forEach((res) => {
-            
+
             this.lmitedTime = res.tcimposto;
             this.ajustarTempoToroide()
           });
@@ -245,7 +228,6 @@ export class CounterComponent implements OnInit, OnDestroy {
           shortestTC: this.contador,
           modelo: this.labelPosition,
         };
-        this.sheetsService.submitForm(body, true).subscribe();
         this.newConter = 0;
         this.newMaintenance = 0;
         this.storage.setItem('counter', this.newConter.toString());
@@ -253,7 +235,7 @@ export class CounterComponent implements OnInit, OnDestroy {
       } else if (data.getMinutes() == 1) {
         this.verificarSeFoiUmaVez = true;
       }
-    }, 40000);
+    }, 20000)
     setTimeout(() => {
       this.intervaloCounter();
     }, 1000);
@@ -381,7 +363,7 @@ export class CounterComponent implements OnInit, OnDestroy {
         this.minutos17 = 60;
         this.minutos17 = new Date().getMinutes();
       }
-    }, 1000);
+    }, 4000);
   }
 
   enterFullscreen() {
@@ -394,7 +376,7 @@ export class CounterComponent implements OnInit, OnDestroy {
 
   intervaloCounter() {
     this.intervalo = setInterval(() => {
-      if (!this.contadorRodando && this.analiseButton != true && this.onAnalise != true ) {
+      if (!this.contadorRodando && this.analiseButton != true && this.onAnalise != true) {
         if (this.tempoOcioso > this.limitedTimeOcioso) {
           if (!this.vermelhoStateCalled) {
             this.operationService.atualizarState(this.operation.name, 'vermelho');
@@ -417,6 +399,11 @@ export class CounterComponent implements OnInit, OnDestroy {
 
 
   ngOnDestroy() {
+    this.operationService.atualizar(this.operation.id, false).subscribe(res => {
+      this.openSnackBar('Enviado com sucesso', 'Ok');
+    }, error => {
+      this.openSnackBar('Erro no Service', 'Ok');
+    })
     clearInterval(this.realizadoInterval)
     clearInterval(this.intervalo)
     this.stopTimer('');
@@ -438,7 +425,6 @@ export class CounterComponent implements OnInit, OnDestroy {
         this.stopTimer(state);
         this.stateButton = true;
         this.contador = 0;
-        this.operationService.atualizar(this.operation.name, this.contador);
       } else {
         this.openDialogAviso();
       }
@@ -453,13 +439,28 @@ export class CounterComponent implements OnInit, OnDestroy {
   iniciarContagem(state: string) {
     this.currentState = 'verde';
     this.contadorRodando = true;
+    this.operationService.getTempo(this.operation.id).subscribe(res => {
+      if(res._couting == false){
+        this.operationService.atualizar(this.operation.id, true).subscribe(res => {
+          this.openSnackBar('Enviado com sucesso', 'Ok');
+        }, error => {
+          this.openSnackBar('Erro no Service', 'Ok');
+        })
+      }else{
+        this.operationService.atualizar(this.operation.id, false).subscribe(res => {
+          this.openSnackBar('Enviado com sucesso', 'Ok');
+          this.operationService.atualizar(this.operation.id, true).subscribe(res => {
+            this.openSnackBar('Enviado com sucesso', 'Ok');
+          }, error => {
+            this.openSnackBar('Erro no Service', 'Ok');
+          })
+        }, error => {
+          this.openSnackBar('Erro no Service', 'Ok');
+        })
+      }
+    })
     this.intervalRef = setInterval(() => {
       this.contador++;
-      this.operationService.atualizar(this.operation.name, this.contador);
-      if (this.contador === parseInt((this.limitedTimeOcioso + 60).toFixed(0))) {
-        this.operationService.changeTimeExcess(this.operation.name);
-        console.log("enviou1")
-      }
       if (
         this.operation.name == '160' ||
         this.operation.name == '170' ||
@@ -468,48 +469,50 @@ export class CounterComponent implements OnInit, OnDestroy {
         this.operation.name == '200' ||
         this.operation.name == '210' ||
         this.operation.name == '220' ||
-        this.operation.name == '230' 
-      ) 
-      {
-      if (this.contador > 9999) {
-        this.stopTimer(state);
-      } else if (this.contador > 240 && this.currentState == 'azul') {
-        console.log(this.currentState);
-        this.currentState = 'vermelho';
-        this.operationService.atualizarState(this.operation.name, 'vermelho');
-      } else if (this.contador < 240 && this.currentState == 'verde') {
-        this.currentState = 'azul';
-        this.operationService.atualizarState(this.operation.name, 'verde');
-      }
-      } else {
+        this.operation.name == '230'
+      ) {
+        if (this.contador === (240 + 60)) {
+          this.operationService.changeTimeExcess(this.operation.name);
+        }
         if (this.contador > 9999) {
           this.stopTimer(state);
-      } else if (
-        this.contador > this.lmitedTime &&
-        this.currentState == 'azul'
-      ) {
-        this.currentState = 'vermelho';
-        this.operationService.atualizarState(this.operation.name, 'vermelho');
-      } else if (
-        this.contador > this.lmitedTime &&
-        this.currentState == 'vermelho'
-      ) {
-        this.currentState = 'verde';
-        this.operationService.atualizarState(this.operation.name, 'vermelho');
-      } else if (
-        this.contador < this.lmitedTime &&
-        this.currentState == 'verde'
-       ) {
-        this.currentState = 'vermelho';
-        this.operationService.atualizarState(this.operation.name, 'verde');
-      }
+        } else if (this.contador == 240) {
+          this.operationService.atualizarState(this.operation.name, 'vermelho');
+          this.vermelhoStateCalled = true
+        } else if (this.contador == 2) {
+          this.operationService.atualizarState(this.operation.name, 'verde');
+        }
+      } else {
+        if (this.contador === parseInt((this.limitedTimeOcioso + 60).toFixed(0))) {
+          this.operationService.changeTimeExcess(this.operation.name);
+        }
+        if (this.contador > 9999) {
+          this.stopTimer(state);
+        } else if (
+          this.contador == this.lmitedTime
+        ) {
+          this.vermelhoStateCalled = true
+          this.operationService.atualizarState(this.operation.name, 'vermelho');
+        } else if (
+          this.contador == 2
+        ) {
+          this.operationService.atualizarState(this.operation.name, 'verde');
+        }
       }
     }, 1000);
   }
 
   stopTimer(state: string) {
     this.operationService.getTCimposto().subscribe((res: Main[]) => {
-      this.operationService.atualizar(this.operation.name, this.contador);
+      this.operationService.getTempo(this.operation.id).subscribe(res => {
+        if(res._couting == true){
+          this.operationService.atualizar(this.operation.id, false).subscribe(res => {
+            this.openSnackBar('Enviado com sucesso', 'Ok');
+          }, error => {
+            this.openSnackBar('Erro no Service', 'Ok');
+          })
+        }
+      })
       res.forEach((res) => {
         this.lmitedTime = res.tcimposto;
       });
@@ -582,8 +585,7 @@ export class CounterComponent implements OnInit, OnDestroy {
         }
       });
     }
-    this.contador = 0; // Reseta o contador para 0 quando a contagem é parada
-    this.operationService.atualizar(this.operation.name, 0);
+    this.contador = 0;
     var body: Nodemcu = {
       count: this.newConter,
       time: 0,
@@ -594,7 +596,6 @@ export class CounterComponent implements OnInit, OnDestroy {
       shortestTC: this.contador,
       modelo: this.labelPosition,
     };
-    this.sheetsService.submitForm(body, false).subscribe();
   }
 
   openSnackBar(message: string, action: string) {
@@ -642,22 +643,22 @@ export class CounterComponent implements OnInit, OnDestroy {
   ajuda() {
     this.onAjuda = !this.onAjuda; // Alternar entre verdadeiro e falso ao clicar
     if (this.onAjuda) {
-        // Se a ajuda estiver ativada
-        this.operationService.changeAjuda(this.operation.name);
-        clearInterval(this.intervalo);
-        this.tempoOcioso = 0;
-        this.intervaloCounter();
-        this.stateButton = true;
-        this.contador = 0;
-        this.contadorRodando = false;
-        clearInterval(this.intervalRef);
-        this.vermelhoStateCalled = false;
-        this.azulStateCalled = false;
+      // Se a ajuda estiver ativada
+      this.operationService.changeAjuda(this.operation.name);
+      clearInterval(this.intervalo);
+      this.tempoOcioso = 0;
+      this.intervaloCounter();
+      this.stateButton = true;
+      this.contador = 0;
+      this.contadorRodando = false;
+      clearInterval(this.intervalRef);
+      this.vermelhoStateCalled = false;
+      this.azulStateCalled = false;
     } else {
-        this.operationService.atualizarState(this.operation.name, 'verde');
-      
+      this.operationService.atualizarState(this.operation.name, 'verde');
+
     }
-}
+  }
 
 }
 

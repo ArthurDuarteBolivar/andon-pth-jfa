@@ -6,10 +6,12 @@
 }
 
 .animationRed{
-    animation: changeBackgroundRed 1s ease-in-out infinite;
+    // animation: changeBackgroundRed 1s ease-in-out infinite;
+    background-color: #B22222 ;
 }
 .animationBlue{
-    animation: changeBackgroundBlue 1s ease-in-out infinite;
+    // animation: changeBackgroundBlue 1s ease-in-out infinite;
+    background-color: #00008b;
 }
 
 section {

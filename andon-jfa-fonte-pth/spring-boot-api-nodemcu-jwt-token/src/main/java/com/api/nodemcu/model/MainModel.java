@@ -18,5 +18,6 @@ public class MainModel {
     private Integer TCimposto;
 
     private double shiftTime;
-
+    
+    private String op;
 }

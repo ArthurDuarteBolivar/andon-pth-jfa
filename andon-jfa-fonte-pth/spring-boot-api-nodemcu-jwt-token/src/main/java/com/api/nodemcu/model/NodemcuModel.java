@@ -20,28 +20,31 @@ public class NodemcuModel {
     private int id;
 
     @OneToOne
-    @JoinTable(name = "nameId")
+    @JoinColumn(name = "name_id")
     private OperationModel nameId;
 
-    @ManyToOne
-    @JoinTable(name = "fontesId")
-    private FontesModel fontesId;
+    @OneToOne
+    @JoinColumn(name = "contador")
+    private Contador contador;
+
 
     private Integer count;
 
-    private Integer time;
+    private Integer firtlastTC;
 
     private String state;
 
-    private Date data;
-
     private Integer currentTC;
+
+    private Integer analise;
+
+    private Integer time_excess;
 
     private Integer maintenance;
 
-    private Integer firtlastTC;
-
     private Integer secondtlastTC;
+
+    private Integer ajuda;
 
     private Integer thirdlastTC;
 
@@ -51,21 +54,7 @@ public class NodemcuModel {
 
     private Integer TCmedio;
 
-    private Integer localTC;
 
-    private Integer ajuda;
-
-    private Integer analise;
-
-    private Integer time_excess;
-
-    @PrePersist
-    protected void prePersist() {
-        if (this.data == null){
-            TimeZone.setDefault(TimeZone.getTimeZone("America/Sao_Paulo"));
-            data = new Date();
-        }
-    }
 
 }
 

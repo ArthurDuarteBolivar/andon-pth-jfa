@@ -1,8 +1,10 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Modelo } from 'src/app/module/modelo';
 import { Nodemcu } from 'src/app/module/nodemcu';
 import { Realizado } from 'src/app/module/realizado';
 import { MainService } from 'src/app/service/main.service';
+import { ModeloService } from 'src/app/service/modelo.service';
 import { NodemcuService } from 'src/app/service/nodemcu.service';
 import { DialogMetaComponent } from 'src/app/shared/dialog-meta/dialog-meta.component';
 import { DialogPausaComponent } from 'src/app/shared/dialog-pausa/dialog-pausa.component';
@@ -14,13 +16,14 @@ import { DialogPausaComponent } from 'src/app/shared/dialog-pausa/dialog-pausa.c
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent  implements OnInit {
+export class HomeComponent implements OnInit {
   constructor(
     private nodemcuService: NodemcuService,
     public dialog: MatDialog,
-    private mainService: MainService
-  ) {}
-
+    private mainService: MainService,
+    private modeloService: ModeloService
+  ) { }
+  modeloAtual!: Modelo;
   dataAtual = new Date()
   diaDaSemanda: Date = new Date();
   dialogRef: any;
@@ -32,6 +35,7 @@ export class HomeComponent  implements OnInit {
   MediaHorarioRealizada: number = 0;
   nodemcu: Nodemcu[] = [];
   date: any;
+  op: string = ""
   TCimpostado: number = 0;
   previsto: number = 0;
   shiftTime: number = 8.66;
@@ -69,6 +73,16 @@ export class HomeComponent  implements OnInit {
   impostodivididoporshift: any = 0;
   realizado7 = 0
   ngOnInit(): void {
+    this.modeloService.getAll().subscribe(res => {
+      res.forEach(item => {
+        if (item.is_current == true) {
+          this.modeloAtual = item
+        }
+      })
+      if (this.modeloAtual == undefined) {
+        this.modeloService.changeIsCurrent('STORM 120A', true)
+      }
+    })
     window.onload = () => {
       this.init = true;
     };
@@ -80,6 +94,7 @@ export class HomeComponent  implements OnInit {
       this.nodemcu = res;
       this.mainService.getAllMain().subscribe((res: any) => {
         this.imposto = res[0].imposto;
+        this.op = res[0].op
       });
     });
     this.nodemcuService.getAllRealizado().subscribe((res) => {
@@ -87,7 +102,7 @@ export class HomeComponent  implements OnInit {
     });
     setInterval(() => {
       this.impostodivididoporshift = ((this.imposto / this.shiftTime) / 60)
-      if(this.diaDaSemanda.getDay() == 5){
+      if (this.diaDaSemanda.getDay() == 5) {
         this.shiftTime = 7.66
       }
       this.diaDaSemanda = new Date();
@@ -194,10 +209,36 @@ export class HomeComponent  implements OnInit {
         this.getRealizado();
       });
       this.dataAtual = new Date();
+      this.retirarPausa()
     }, 1000);
     setInterval(() => {
       this.realizadoIntevalo();
     }, 5000);
+  }
+
+  retirarPausa() {
+    const now = new Date();
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+
+    if (hours === 9 && minutes === 15) {
+      this.nodemcuService.pausa(true).subscribe()
+    } 
+    if (hours === 9 && minutes === 25) {
+      this.nodemcuService.pausa(false).subscribe()
+    } 
+    if (hours === 11 && minutes === 30) {
+      this.nodemcuService.pausa(true).subscribe()
+    } 
+    if (hours === 12 && minutes === 30) {
+      this.nodemcuService.pausa(false).subscribe()
+    } 
+    if (hours === 15 && minutes === 20) {
+      this.nodemcuService.pausa(true).subscribe()
+    } 
+    if (hours === 15 && minutes === 30) {
+      this.nodemcuService.pausa(false).subscribe()
+    }
   }
 
   realizadoIntevalo() {
@@ -206,7 +247,16 @@ export class HomeComponent  implements OnInit {
     });
     this.mainService.getAllMain().subscribe((res) => {
       this.imposto = res[0].imposto;
+      this.op = res[0].op
     });
+    this.modeloService.getAll().subscribe(res => {
+      res.forEach(item => {
+        if (item.is_current == true) {
+          this.modeloAtual = item
+        }
+      })
+
+    })
     this.nodemcu.forEach(item => {
       if (item.nameId.pausa == true) {
         if (!this.dialog.openDialogs.length) {
@@ -228,9 +278,9 @@ export class HomeComponent  implements OnInit {
     this.nodemcu.forEach((res) => {
       this.TCmedioRealizado += res.tcmedio;
       this.MediaHorarioRealizada += res.tcmedio;
-      if (res.id == 78) {
+      if (res.nameId.name == "250") {
         this.realizado += res.count;
-      }else if(res.id == 77){
+      } else if (res.nameId.name == "240") {
         this.realizado += res.count
       }
     });
@@ -257,29 +307,43 @@ export class HomeComponent  implements OnInit {
     this.TCimpostado = 3600 / (this.imposto / this.shiftTime);
 
 
-    this.previsto = 
+    this.previsto =
       this.date / (this.TCimpostado / 60) - this.ProportionalDiscount;
   }
 
   openDialog() {
-    const dialogRef = this.dialog.open(DialogMetaComponent);
+    const dialogRef = this.dialog.open(DialogMetaComponent, { width: '30%', height: '70%' });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        console.log('entrou')
-        this.imposto = result.split(',')[0];
+        var newImposto = result.split(',')[0];
+        if (newImposto != 0) {
+          this.imposto = result.split(',')[0];
+          this.mainService
+            .put(this.imposto, this.TCimpostado, this.shiftTime, this.op)
+            .subscribe();
+        }
         this.shiftTime = result.split(',')[1];
-        if (this.shiftTime == 0 || null || undefined) {
-          this.shiftTime = 8.66;
-          if(this.diaDaSemanda.getDay() == 5){
+        if (this.shiftTime == 0) {
+          if (this.diaDaSemanda.getDay() == 5) {
             this.shiftTime = 7.66
+          } else {
+            this.shiftTime = 8.66;
           }
+          this.mainService
+            .put(this.imposto, this.TCimpostado, this.shiftTime, this.op)
+            .subscribe();
           this.getValues();
         }
-        this.mainService
-          .put(this.imposto, this.TCimpostado, this.shiftTime)
-          .subscribe();
+        var op = result.split(',')[2]
+        if (op != "0") {
+          this.mainService
+            .put(this.imposto, this.TCimpostado, this.shiftTime, op)
+            .subscribe();
+          this.getValues();
+        }
       }
     });
   }
 }
+

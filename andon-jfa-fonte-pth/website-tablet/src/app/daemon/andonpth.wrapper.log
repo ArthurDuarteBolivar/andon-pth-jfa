@@ -12,3 +12,149 @@
 2024-07-03 07:25:38 - Started 12236
 2024-07-05 13:18:56 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\andon-jfa-fonte-pth\website-tablet\node_modules\node-windows\lib\wrapper.js --file C:\andon-jfa-fonte-pth\website-tablet\src\app\express.js --scriptoptions= --log "andonpth wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
 2024-07-05 13:18:56 - Started 114948
+2024-07-09 10:39:48 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\andon-jfa-fonte-pth\website-tablet\node_modules\node-windows\lib\wrapper.js --file C:\andon-jfa-fonte-pth\website-tablet\src\app\express.js --scriptoptions= --log "andonpth wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2024-07-09 10:39:48 - Started 68012
+2024-07-09 13:22:40 - Stopping andonpth.exe
+2024-07-09 13:22:40 - ProcessKill 68012
+2024-07-09 13:22:40 - Found child process: 35260 Name: conhost.exe
+2024-07-09 13:22:40 - Found child process: 162960 Name: node.exe
+2024-07-09 13:22:40 - Stopping process 35260
+2024-07-09 13:22:40 - Send SIGINT 35260
+2024-07-09 13:22:40 - SIGINT to 35260 failed - Killing as fallback
+2024-07-09 13:22:41 - Stopping process 162960
+2024-07-09 13:22:41 - Send SIGINT 162960
+2024-07-09 13:22:41 - SIGINT to 162960 failed - Killing as fallback
+2024-07-09 13:22:41 - Stopping process 68012
+2024-07-09 13:22:41 - Send SIGINT 68012
+2024-07-09 13:22:41 - SIGINT to 68012 failed - Killing as fallback
+2024-07-09 13:22:41 - Finished andonpth.exe
+2024-07-09 13:23:25 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\andon-jfa-fonte-pth\website-tablet\node_modules\node-windows\lib\wrapper.js --file C:\andon-jfa-fonte-pth\website-tablet\src\app\express.js --scriptoptions= --log "andonpth wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2024-07-09 13:23:25 - Started 82816
+2024-07-11 09:18:13 - Stopping andonpth.exe
+2024-07-11 09:18:13 - ProcessKill 82816
+2024-07-11 09:18:13 - Found child process: 2836 Name: conhost.exe
+2024-07-11 09:18:13 - Found child process: 39620 Name: node.exe
+2024-07-11 09:18:13 - Stopping process 2836
+2024-07-11 09:18:13 - Send SIGINT 2836
+2024-07-11 09:18:13 - SIGINT to 2836 failed - Killing as fallback
+2024-07-11 09:18:13 - Stopping process 39620
+2024-07-11 09:18:13 - Send SIGINT 39620
+2024-07-11 09:18:13 - SIGINT to 39620 failed - Killing as fallback
+2024-07-11 09:18:13 - Stopping process 82816
+2024-07-11 09:18:13 - Send SIGINT 82816
+2024-07-11 09:18:13 - SIGINT to 82816 failed - Killing as fallback
+2024-07-11 09:18:13 - Finished andonpth.exe
+2024-07-11 09:18:16 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\andon-jfa-fonte-pth\website-tablet\node_modules\node-windows\lib\wrapper.js --file C:\andon-jfa-fonte-pth\website-tablet\src\app\express.js --scriptoptions= --log "andonpth wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2024-07-11 09:18:16 - Started 127208
+2024-07-11 15:12:06 - Stopping andonpth.exe
+2024-07-11 15:12:06 - ProcessKill 127208
+2024-07-11 15:12:07 - Shutdown exception
+Message:O sistema está sendo desligado.
+
+Stacktrace:   em System.Runtime.InteropServices.Marshal.ThrowExceptionForHRInternal(Int32 errorCode, IntPtr errorInfo)
+   em System.Management.ManagementScope.InitializeGuts(Object o)
+   em System.Management.ManagementScope.Initialize()
+   em System.Management.ManagementObjectSearcher.Initialize()
+   em System.Management.ManagementObjectSearcher.Get()
+   em winsw.WrapperService.GetChildPids(Int32 pid)
+   em winsw.WrapperService.StopProcessAndChildren(Int32 pid)
+   em winsw.WrapperService.StopIt()
+   em winsw.WrapperService.OnShutdown()
+2024-07-11 15:12:32 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\andon-jfa-fonte-pth\website-tablet\node_modules\node-windows\lib\wrapper.js --file C:\andon-jfa-fonte-pth\website-tablet\src\app\express.js --scriptoptions= --log "andonpth wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2024-07-11 15:12:32 - Started 7048
+2024-07-11 15:27:21 - Stopping andonpth.exe
+2024-07-11 15:27:21 - ProcessKill 7048
+2024-07-11 15:27:21 - Found child process: 6980 Name: conhost.exe
+2024-07-11 15:27:21 - Found child process: 1980 Name: node.exe
+2024-07-11 15:27:21 - Stopping process 6980
+2024-07-11 15:27:21 - Send SIGINT 6980
+2024-07-11 15:27:21 - SIGINT to 6980 failed - Killing as fallback
+2024-07-11 15:27:21 - Stopping process 1980
+2024-07-11 15:27:21 - Send SIGINT 1980
+2024-07-11 15:27:21 - SIGINT to 1980 failed - Killing as fallback
+2024-07-11 15:27:21 - Stopping process 7048
+2024-07-11 15:27:21 - Send SIGINT 7048
+2024-07-11 15:27:21 - SIGINT to 7048 failed - Killing as fallback
+2024-07-11 15:27:21 - Finished andonpth.exe
+2024-07-11 15:27:23 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\andon-jfa-fonte-pth\website-tablet\node_modules\node-windows\lib\wrapper.js --file C:\andon-jfa-fonte-pth\website-tablet\src\app\express.js --scriptoptions= --log "andonpth wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2024-07-11 15:27:23 - Started 13972
+2024-07-11 15:28:53 - Stopping andonpth.exe
+2024-07-11 15:28:53 - ProcessKill 13972
+2024-07-11 15:28:53 - Found child process: 8084 Name: conhost.exe
+2024-07-11 15:28:53 - Found child process: 14516 Name: node.exe
+2024-07-11 15:28:53 - Stopping process 8084
+2024-07-11 15:28:53 - Send SIGINT 8084
+2024-07-11 15:28:53 - SIGINT to 8084 failed - Killing as fallback
+2024-07-11 15:28:53 - Stopping process 14516
+2024-07-11 15:28:53 - Send SIGINT 14516
+2024-07-11 15:28:53 - SIGINT to 14516 failed - Killing as fallback
+2024-07-11 15:28:53 - Stopping process 13972
+2024-07-11 15:28:53 - Send SIGINT 13972
+2024-07-11 15:28:53 - SIGINT to 13972 failed - Killing as fallback
+2024-07-11 15:28:53 - Finished andonpth.exe
+2024-07-11 15:28:55 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\andon-jfa-fonte-pth\website-tablet\node_modules\node-windows\lib\wrapper.js --file C:\andon-jfa-fonte-pth\website-tablet\src\app\express.js --scriptoptions= --log "andonpth wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2024-07-11 15:28:55 - Started 10200
+2024-07-11 15:37:48 - Stopping andonpth.exe
+2024-07-11 15:37:48 - ProcessKill 10200
+2024-07-11 15:37:48 - Shutdown exception
+Message:O sistema está sendo desligado.
+
+Stacktrace:   em System.Runtime.InteropServices.Marshal.ThrowExceptionForHRInternal(Int32 errorCode, IntPtr errorInfo)
+   em System.Management.ManagementScope.InitializeGuts(Object o)
+   em System.Management.ManagementScope.Initialize()
+   em System.Management.ManagementObjectSearcher.Initialize()
+   em System.Management.ManagementObjectSearcher.Get()
+   em winsw.WrapperService.GetChildPids(Int32 pid)
+   em winsw.WrapperService.StopProcessAndChildren(Int32 pid)
+   em winsw.WrapperService.StopIt()
+   em winsw.WrapperService.OnShutdown()
+2024-07-11 15:38:29 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\andon-jfa-fonte-pth\website-tablet\node_modules\node-windows\lib\wrapper.js --file C:\andon-jfa-fonte-pth\website-tablet\src\app\express.js --scriptoptions= --log "andonpth wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2024-07-11 15:38:29 - Started 8296
+2024-07-16 09:11:19 - Stopping andonpth.exe
+2024-07-16 09:11:19 - ProcessKill 8296
+2024-07-16 09:11:19 - Found child process: 8804 Name: conhost.exe
+2024-07-16 09:11:19 - Found child process: 9596 Name: node.exe
+2024-07-16 09:11:19 - Stopping process 8804
+2024-07-16 09:11:19 - Send SIGINT 8804
+2024-07-16 09:11:19 - SIGINT to 8804 failed - Killing as fallback
+2024-07-16 09:11:19 - Stopping process 9596
+2024-07-16 09:11:19 - Send SIGINT 9596
+2024-07-16 09:11:19 - SIGINT to 9596 failed - Killing as fallback
+2024-07-16 09:11:19 - Stopping process 8296
+2024-07-16 09:11:19 - Send SIGINT 8296
+2024-07-16 09:11:19 - SIGINT to 8296 failed - Killing as fallback
+2024-07-16 09:11:19 - Finished andonpth.exe
+2024-07-16 09:11:48 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\andon-jfa-fonte-pth\website-tablet\node_modules\node-windows\lib\wrapper.js --file C:\andon-jfa-fonte-pth\website-tablet\src\app\express.js --scriptoptions= --log "andonpth wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2024-07-16 09:11:48 - Started 16296
+2024-07-16 09:20:31 - Stopping andonpth.exe
+2024-07-16 09:20:31 - ProcessKill 16296
+2024-07-16 09:20:32 - Found child process: 5024 Name: conhost.exe
+2024-07-16 09:20:32 - Found child process: 21244 Name: node.exe
+2024-07-16 09:20:32 - Stopping process 5024
+2024-07-16 09:20:32 - Send SIGINT 5024
+2024-07-16 09:20:32 - SIGINT to 5024 failed - Killing as fallback
+2024-07-16 09:20:32 - Stopping process 21244
+2024-07-16 09:20:32 - Send SIGINT 21244
+2024-07-16 09:20:32 - SIGINT to 21244 failed - Killing as fallback
+2024-07-16 09:20:32 - Stopping process 16296
+2024-07-16 09:20:32 - Send SIGINT 16296
+2024-07-16 09:20:32 - SIGINT to 16296 failed - Killing as fallback
+2024-07-16 09:20:32 - Finished andonpth.exe
+2024-07-16 09:38:22 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\andon-jfa-fonte-pth\website-tablet\node_modules\node-windows\lib\wrapper.js --file C:\andon-jfa-fonte-pth\website-tablet\src\app\express.js --scriptoptions= --log "andonpth wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2024-07-16 09:38:22 - Started 8720
+2024-07-16 11:26:01 - Stopping andonpth.exe
+2024-07-16 11:26:01 - ProcessKill 8720
+2024-07-16 11:26:01 - Found child process: 14256 Name: conhost.exe
+2024-07-16 11:26:01 - Found child process: 14956 Name: node.exe
+2024-07-16 11:26:01 - Stopping process 14256
+2024-07-16 11:26:01 - Send SIGINT 14256
+2024-07-16 11:26:02 - SIGINT to 14256 failed - Killing as fallback
+2024-07-16 11:26:02 - Stopping process 14956
+2024-07-16 11:26:02 - Send SIGINT 14956
+2024-07-16 11:26:02 - SIGINT to 14956 failed - Killing as fallback
+2024-07-16 11:26:02 - Stopping process 8720
+2024-07-16 11:26:02 - Send SIGINT 8720
+2024-07-16 11:26:02 - SIGINT to 8720 failed - Killing as fallback
+2024-07-16 11:26:02 - Finished andonpth.exe
+2024-07-16 11:26:26 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\andon-jfa-fonte-pth\website-tablet\node_modules\node-windows\lib\wrapper.js --file C:\andon-jfa-fonte-pth\website-tablet\src\app\express.js --scriptoptions= --log "andonpth wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2024-07-16 11:26:26 - Started 11792

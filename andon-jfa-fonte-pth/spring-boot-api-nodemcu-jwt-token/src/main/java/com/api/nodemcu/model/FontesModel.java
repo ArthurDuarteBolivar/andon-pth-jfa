@@ -19,5 +19,8 @@ public class FontesModel {
     private Integer realizado;
 
     private Integer tempo;
+    
+    private Boolean is_current;
 
 }
+

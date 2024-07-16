@@ -1,6 +1,7 @@
 package com.api.nodemcu.controllers;
 
 
+import com.api.nodemcu.model.Contador;
 import com.api.nodemcu.model.MainModel;
 import com.api.nodemcu.model.NodemcuModel;
 import com.api.nodemcu.model.OperationModel;
@@ -45,6 +46,9 @@ public class NodemcuController {
 
     @Autowired
     private RealizadoHorariaTabletRepository realizadoHorariaTabletRepository;
+
+    @Autowired
+    private ContadorController contadorController;
 
     boolean state = false;
     Integer anterior = 0;
@@ -129,6 +133,13 @@ public class NodemcuController {
         device.setFirtlastTC(device.getCurrentTC());
         if (device.getShortestTC() > nodemcuUpdates.getShortestTC() && nodemcuUpdates.getShortestTC() > 10) {
             device.setShortestTC(nodemcuUpdates.getShortestTC());
+        }
+        if (nodemcuUpdates.getNameId().getName().equals("160") || nodemcuUpdates.getNameId().getName().equals("170") || nodemcuUpdates.getNameId().getName().equals("180") || nodemcuUpdates.getNameId().getName().equals("190") || nodemcuUpdates.getNameId().getName().equals("200") || nodemcuUpdates.getNameId().getName().equals("210") || nodemcuUpdates.getNameId().getName().equals("220") || nodemcuUpdates.getNameId().getName().equals("230")){
+            if (240 < nodemcuUpdates.getCurrentTC()) {
+                Integer excedido = device.getQtdeTCexcedido();
+                excedido++;
+                device.setQtdeTCexcedido(excedido);
+            }    
         } else if (mainRepostory.findById(1).get().getTCimposto() < nodemcuUpdates.getCurrentTC()) {
             Integer excedido = device.getQtdeTCexcedido();
             excedido++;
@@ -155,7 +166,7 @@ public class NodemcuController {
 
         try {
             NodemcuModel savedDevice = repository.save(device);
-            if (savedDevice != null) {
+            if (savedDevice != null && isRefugo == (false)) {
                 if (Integer.parseInt(nodemcuUpdates.getNameId().getName()) == 250 || Integer.parseInt(nodemcuUpdates.getNameId().getName()) == 240) {
                     RealizadoHoraria();
                 }
@@ -183,8 +194,6 @@ public class NodemcuController {
         Optional<RealizadoHorariaModel> realizado = Optional.of(new RealizadoHorariaModel());
         Integer hour = 0;
         realizado = realizadoHorariaRepository.findById(1);
-        OperationModel operation = operationRepository.findByName("160");
-        NodemcuModel device = repository.findByNameId(operation);
         switch (horaFormatada) {
             case 7:
                 hour = realizado.get().getHoras7();
@@ -263,8 +272,6 @@ public class NodemcuController {
                 realizadoHorariaRepository.save(realizado.get());
                 break;
         }
-        device.setCount(realizadoHorariaRepository.somarTudo());
-        repository.save(device);
     }
 
     public void RealizadoHorariaTablet(String name) {
@@ -361,29 +368,16 @@ public class NodemcuController {
     @Transactional
     @GetMapping("/atualizarTempo/{name}/{tempo}")
     public void iniciarTempo(@PathVariable("name") String name, @PathVariable("tempo") Integer tempo) {
-        OperationModel operation = operationRepository.findByName(name);
-        repository.updateLocalTCByNameId(tempo, operation.getId());
+        // OperationModel operation = operationRepository.findByName(name);
+        // repository.updateLocalTCByNameId(tempo, operation.getId());
     }
-
-    // @GetMapping("/atualizarTempo/{name}/{tempo}")
-    // public void iniciarTempo(@PathVariable("name") String name,
-    // @PathVariable("tempo") Integer tempo) {
-    // OperationModel operation = operationRepository.findByName(name);
-    // NodemcuModel device = repository.findByNameId(operation);
-    // if(tempo == 0){
-    // device.setLocalTC(0);
-    // repository.save(device);
-    // return;
-    // }
-    // device.setLocalTC(tempo);
-    // repository.save(device);
-    // }
 
     public void zerarDados() {
         if (zerouDados) {
             try{
-
-                System.out.println("zerou dados");
+                OperationModel operations = operationRepository.findByName("160");
+                NodemcuModel nodemcuResultadoGeral = repository.findByNameId(operations);
+                Optional<MainModel> main = mainRepostory.findById(1);
                 Optional<RealizadoHorariaModel> realizadoReset = realizadoHorariaRepository.findById(1);
                 realizadoReset.ifPresent(reset -> {
                     reset.setHoras12(0);
@@ -411,10 +405,13 @@ public class NodemcuController {
                     nodemcu.setQtdeTCexcedido(0);
                     nodemcu.setTCmedio(0);
                     nodemcu.setShortestTC(9999);
-                    nodemcu.setLocalTC(0);
                     nodemcu.setCount(0);
-                    nodemcu.setAnalise(0);
+                    contadorController.atualizarTempo(nodemcu.getContador().getId(), false);
+                    Contador contador = nodemcu.getContador();
+                    contador.setContadorAtual(0);
+                    contador.set_couting(false);
                     nodemcu.setTime_excess(0);
+                    nodemcu.setAnalise(0);
                     nodemcu.setAjuda(0);
                     repository.save(nodemcu);
                 }
@@ -448,72 +445,3 @@ public class NodemcuController {
         }
         }
     }
-
-//    public void zerarDados() {
-//        if (zerouDados) {
-//            OperationModel operations = operationRepository.findByName("160");
-//            NodemcuModel nodemcuResultadoGeral = repository.findByNameId(operations);
-//            Optional<MainModel> main = mainRepostory.findById(1);
-//            ControleGeralModel controleGeral = new ControleGeralModel();
-//            controleGeral.setImposto((int) Math.floor(main.get().getImposto()));
-//            controleGeral.setRealizado(nodemcuResultadoGeral.getCount());
-//            controleGeral.setData(new Date());
-//            controleGeralRepository.save(controleGeral);
-//
-//            System.out.println("zerou dados");
-//            Optional<RealizadoHorariaModel> realizadoReset = realizadoHorariaRepository.findById(1);
-//            realizadoReset.ifPresent(reset -> {
-//                reset.setHoras12(0);
-//                reset.setHoras11(0);
-//                reset.setHoras10(0);
-//                reset.setHoras9(0);
-//                reset.setHoras8(0);
-//                reset.setHoras7(0);
-//                reset.setHoras13(0);
-//                reset.setHoras14(0);
-//                reset.setHoras15(0);
-//                reset.setHoras17(0);
-//                reset.setHoras16(0);
-//                realizadoHorariaRepository.save(reset);
-//            });
-//            List<NodemcuModel> nodemcuList = repository.findAll();
-//            for (NodemcuModel nodemcu : nodemcuList) {
-//                nodemcu.setCurrentTC(0);
-//                nodemcu.setCount(0);
-//                nodemcu.setFirtlastTC(0);
-//                nodemcu.setSecondtlastTC(0);
-//                nodemcu.setThirdlastTC(0);
-//                nodemcu.setState("verde");
-//                nodemcu.setMaintenance(0);
-//                nodemcu.setQtdeTCexcedido(0);
-//                nodemcu.setTCmedio(0);
-//                nodemcu.setShortestTC(9999);
-//                nodemcu.setLocalTC(0);
-//                nodemcu.setCount(0);
-//                repository.save(nodemcu);
-//            }
-//
-//            List<RealizadoHorariaTabletModel> realizadoList = realizadoHorariaTabletRepository.findAll();
-//            for (RealizadoHorariaTabletModel realizado : realizadoList) {
-//                realizado.setHoras7(0);
-//                realizado.setHoras8(0);
-//                realizado.setHoras9(0);
-//                realizado.setHoras10(0);
-//                realizado.setHoras11(0);
-//                realizado.setHoras12(0);
-//                realizado.setHoras13(0);
-//                realizado.setHoras14(0);
-//                realizado.setHoras15(0);
-//                realizado.setHoras16(0);
-//                realizado.setHoras17(0);
-//                realizadoHorariaTabletRepository.save(realizado);
-//            }
-//            List<OperationModel> operation = operationRepository.findAll();
-//            for (OperationModel op : operation) {
-//                op.setOcupado(false);
-//                operationRepository.save(op);
-//            }
-//        } else {
-//            zerouDados = true;
-//        }
-//    }
